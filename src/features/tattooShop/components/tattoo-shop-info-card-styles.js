@@ -18,9 +18,9 @@ export const TattooShopCardCover = styled(Card.Cover)`
   padding-bottom: ${(props) => props.theme.space[0]};
 `;
 
-export const IconFellows = styled.Image`
-  width: 40px;
-  height: 40px;
+export const Icon = styled.Image`
+  width: 15px;
+  height: 15px;
 `;
 
 export const Section = styled.View`

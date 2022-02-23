@@ -20,6 +20,7 @@ export const tattooShopTransform = ({ results = [] }) => {
       ...tattooShop,
       isOpenNow: tattooShop.opening_hours && tattooShop.opening_hours.open_now,
       isClosedTemporarily: tattooShop.business_status === "CLOSED_TEMPORARILY",
+      address: tattooShop.vicinity,
     };
   });
 
