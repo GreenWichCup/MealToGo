@@ -1,19 +1,16 @@
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
-import React, { useEffect, useState } from "react";
-import { ThemeProvider } from "styled-components";
-import { theme } from "./src/infrastructure/theme";
+import React from "react";
+
 import {
   useFonts as useOswald,
   Oswald_400Regular,
 } from "@expo-google-fonts/oswald";
 import { useFonts as useLato, Lato_400Regular } from "@expo-google-fonts/lato";
 
-import { TattooShopContextProvider } from "./src/services/tattooShop/tattoo-shop-context";
-import { LocationContextProvider } from "./src/services/location/location-context";
-import { FavouritesContextProvider } from "./src/services/favourites/favourites-context";
-import { AuthentificationContextProvider } from "./src/services/authentification/authentification-context";
-
+import { ThemeProvider } from "styled-components";
+import { theme } from "./src/infrastructure/theme";
 import { Navigation } from "./src/infrastructure/navigation";
+import { AuthentificationContextProvider } from "./src/services/authentification/authentification-context";
 
 export default function App() {
   const [oswaldLoaded] = useOswald({
@@ -32,13 +29,7 @@ export default function App() {
     <>
       <ThemeProvider theme={theme}>
         <AuthentificationContextProvider>
-          <FavouritesContextProvider>
-            <LocationContextProvider>
-              <TattooShopContextProvider>
-                <Navigation />
-              </TattooShopContextProvider>
-            </LocationContextProvider>
-          </FavouritesContextProvider>
+          <Navigation />
         </AuthentificationContextProvider>
       </ThemeProvider>
       <ExpoStatusBar style="auto" />

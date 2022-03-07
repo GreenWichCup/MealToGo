@@ -5,8 +5,8 @@ import styled from "styled-components";
 import { TattooShopContext } from "../../../services/tattooShop/tattoo-shop-context";
 import { LocationContext } from "../../../services/location/location-context";
 
-import { Search } from "../components/search-component";
-import { MapCallOut } from "../components/map-call-out-component";
+import { Search } from "../components/search.component";
+import { MapCallOut } from "../components/map-call-out.component";
 
 const Map = styled(MapView)`
   width: 100%;

@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 
-import { AccountNavigator } from "./account-navigator";
-import { AppNavigator } from "./app-navigator";
+import { AccountNavigator } from "./account.navigator";
+import { AppNavigator } from "./app.navigator";
 
 import { AuthentificationContext } from "../../services/authentification/authentification-context";
 

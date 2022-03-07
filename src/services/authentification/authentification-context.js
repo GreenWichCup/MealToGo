@@ -1,21 +1,11 @@
-import React, { useState, useEffect, createContext } from "react";
-import { loginRequest } from "./authentification-service";
-
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBztfnDp3gkiltFu87eBsFbJ_7bQJMWObk",
-  authDomain: "tatthood-ee0f3.firebaseapp.com",
-  projectId: "tatthood-ee0f3",
-  storageBucket: "tatthood-ee0f3.appspot.com",
-  messagingSenderId: "439606340009",
-  appId: "1:439606340009:web:b8c4b3426130ea7473bcb8",
-  measurementId: "G-ERKT9PG4FH",
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+import React, { useState, createContext } from "react";
+import { auth } from "./authentification-service";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 
 export const AuthentificationContext = createContext();
 
@@ -24,10 +14,21 @@ export const AuthentificationContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
 
+  onAuthStateChanged(auth, (userSignedIn) => {
+    if (userSignedIn) {
+      setUser(userSignedIn);
+      setIsLoading(false);
+    } else {
+      setIsLoading(false);
+    }
+  });
+
   const onLogin = (email, password) => {
-    loginRequest(auth, email, password)
-      .then((user) => {
-        setUser(user);
+    setIsLoading(true);
+    signInWithEmailAndPassword(auth, email, password)
+      .then((u) => {
+        const loggedUser = u.user;
+        setUser(loggedUser);
         setIsLoading(false);
       })
       .catch((e) => {
@@ -36,13 +37,42 @@ export const AuthentificationContextProvider = ({ children }) => {
       });
   };
 
+  const onRegister = (email, password, repeatedPassword) => {
+    setIsLoading(true);
+    if (password !== repeatedPassword) {
+      setError("Error: Passords do not match");
+      return;
+    }
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const newUser = userCredential.user;
+        setUser(newUser);
+        setIsLoading(false);
+        console.log(user, newUser);
+      })
+      .catch((e) => {
+        setIsLoading(false);
+        setError(e.toString());
+      });
+  };
+
+  const onLogout = () => {
+    signOut(auth).then(() => {
+      setUser(null);
+    });
+  };
+
   return (
     <AuthentificationContext.Provider
       value={{
+        isAuthenticated: !!user,
         user,
         isLoading,
         error,
+        onRegister,
         onLogin,
+        onLogout,
       }}
     >
       {children}

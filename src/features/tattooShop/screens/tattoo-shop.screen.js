@@ -1,20 +1,18 @@
 import React, { useContext, useState } from "react";
-import { FlatList, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { ActivityIndicator, Colors } from "react-native-paper";
 
-import { Spacer } from "../../../components/spacer/spacer-component";
+import { Spacer } from "../../../components/spacer/spacer.component";
 import styled from "styled-components";
-import { SafeArea } from "../../../components/utility/safe-area-component";
-import Search from "../components/search-component";
+import { SafeArea } from "../../../components/utility/safe-area.component";
+import { FadeInView } from "../../../components/animation/fade.animation";
+import Search from "../components/search.component";
 import TattooShopInfoCard from "../components/tattoo-shop-info-card";
-import { FavouriteBar } from "../../../components/favourites/favourite-bar-component";
+import { FavouriteBar } from "../../../components/favourites/favourite-bar.component";
 
 import { TattooShopContext } from "../../../services/tattooShop/tattoo-shop-context";
 import { FavouritesContext } from "../../../services/favourites/favourites-context";
-
-const TattooShopList = styled(FlatList).attrs({
-  contentContainerStyle: { padding: 16 },
-})``;
+import { TattooShopList } from "../components/tattoo-shop-list-styles.component";
 
 export const TattooShopScreen = ({ navigation }) => {
   const { tattooShop, isLoading } = useContext(TattooShopContext);
@@ -62,7 +60,9 @@ export const TattooShopScreen = ({ navigation }) => {
               }
             >
               <Spacer position="bottom" size="large">
-                <TattooShopInfoCard tattooShop={item} />
+                <FadeInView>
+                  <TattooShopInfoCard tattooShop={item} />
+                </FadeInView>
               </Spacer>
             </TouchableOpacity>
           );

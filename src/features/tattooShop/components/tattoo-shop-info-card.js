@@ -1,9 +1,9 @@
 import React from "react";
 import { SvgXml } from "react-native-svg";
 
-import { Spacer } from "../../../components/spacer/spacer-component";
-import { Text } from "../../../components/typography/text-component";
-import { Favourite } from "../../../components/favourites/favourite-component";
+import { Spacer } from "../../../components/spacer/spacer.component";
+import { Text } from "../../../components/typography/text.component";
+import { Favourite } from "../../../components/favourites/favourite.component";
 import starsRating from "../../../../assets/stars-rating";
 import Images from "../../../../assets/localImage";
 import {
